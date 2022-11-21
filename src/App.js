@@ -5,31 +5,20 @@ import React, { useEffect, useRef, useState} from "react";
 function App() {
     // setState执行渲染，如果是对象，里面的值必须是一个新对象
     const [count, setCount] = useState(0)
-    const [obj, setObj] = useState({name: 'jiang'})
-    const [arr, setArr] = useState([1, 2, 3])
-    const [fun, setFun] = useState(() => {return {age: 19}})
+    const [age, setAge] = useState(0)
 
+    useEffect(() => {
+        console.log('我执行了count=', count)
+        return () => {
+            console.log('componentWillUnmount')
+        }
+    }, [count])
     return (
       <>
           <h2>{count}</h2>
-          <button onClick={() => (setCount(count + 1))}>修改变量</button>
-          <h2>{obj.name}</h2>
-          <button onClick={() => (
-              setObj(Object.assign({}, obj, {name: "long"}))
-          )}>修改-对象</button>
-          <h2>{arr}</h2>
-          <button onClick={() => (
-              setArr(() => {
-                  arr.push(4)
-                  return [...arr]
-              })
-          )}>修改-数组</button>
-          <h2>{fun.age}</h2>
-          <button onClick={() => (
-              setFun(() => {
-                  return {age: 24}
-              })
-          )}>修改-函数</button>
+          <button onClick={onClick => (setCount(count + 1))}>改变-age</button>
+          <h2>effect</h2>
+          <button onClick={onClick => {setAge(age + 1)}}>改变-count</button>
       </>
     );
 }
