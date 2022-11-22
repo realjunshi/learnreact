@@ -4,34 +4,31 @@ import React, { useEffect, useRef, useState} from "react";
 
 
 function App() {
-    const initCount = 0;
-    const [count, setCount] = useState(0);
+    const [person, setPerson] = useState({name: 'ling', age: 10})
 
-    const clickHandler = () => {
-        setCount(count + 1)
+    const nameHandler = (event) => {
+        setPerson({...person, name: event.target.value})
+    }
+
+    const ageHandler = (event) => {
+        setPerson({...person, age: event.target.value})
     }
     return (
         <>
-            {/*<div onClick={clickHandler}>*/}
             <div>
-                计数: {count}
-                <button onClick={() => {setCount(initCount)}}>init</button>
-                <button onClick={() => {setCount(count + 1)}}>+1</button>
-                <button onClick={() => {setCount(count - 1)}}>-1</button>
-                <button onClick={() => {
-                    // let num = 0;
-                    for (let i = 0;i < 3;i++){
-                        // num += 1
-                        // 异步返回值累加
-                        // setCount(count => count + 1)
-                        setCount(count => {
-                            return count + 1
-                        })
-                    }
-                    // setCount(count + num)
-                }}>test click</button>
-            </div>
+                {/*<h1>{person.name}</h1>*/}
+                {/*<h1>{person.age}</h1>*/}
+                {/*<button onClick={() => {*/}
+                {/*    // 原对象是不可变的*/}
+                {/*    let newDate = {...person};*/}
+                {/*    newDate.age = 20;*/}
+                {/*    setPerson(newDate)*/}
+                {/*}}>change</button>*/}
 
+                <input type='text' value={person.name} onChange={nameHandler}/>
+                <input type='number' value={person.age} onChange={ageHandler}/>
+                {JSON.stringify(person)}
+            </div>
         </>
     );
 }
