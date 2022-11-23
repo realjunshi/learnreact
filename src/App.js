@@ -24,17 +24,21 @@ import React, {useContext, useReducer} from "react";
 // }
 
 function reducer(state, action){
-    switch (action) {
+    switch (action.type) {
         case 'add':
-            return state + 1
+            return state + action.param
         case 'sub':
-            return state - 1
+            return state - action.param
         case 'mul':
-            return state * 2
+            return state * action.param
         default:
             console.log('what?')
             return state
     }
+}
+
+function getRandom() {
+    return Math.floor(Math.random() * 10)
 }
 
 function App() {
@@ -45,9 +49,9 @@ function App() {
     return (
         <div>
             {count}
-            <button onClick={() => {dispatch('add')}}>add</button>
-            <button onClick={() => {dispatch('sub')}}>sub</button>
-            <button onClick={() => {dispatch('mul')}}>mul</button>
+            <button onClick={() => {dispatch({type: 'add', param: getRandom()})}}>add</button>
+            <button onClick={() => {dispatch({type: 'sub', param: getRandom()})}}>sub</button>
+            <button onClick={() => {dispatch({type: 'mul', param: getRandom()})}}>mul</button>
         </div>
     );
 }
