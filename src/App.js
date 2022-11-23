@@ -1,59 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useContext, useReducer} from "react";
 
+import React, {useState, useContext, useReducer} from "react";
+import CountContext from "./countContext";
+import ComponentA from "./componentA";
+import ComponentB from "./componentB";
+import ComponentP from "./componentP";
 
-// function reducer(state, action){
-//     switch (action) {
-//         case 'xx':
-//             return xxx;
-//         case 'xxx':
-//             return xxxx;
-//         default:
-//             return xxxxx;
-//     }
-// }
-//
-// function Component(){
-//     // 声明一个变量xxx，以及对应修改的xxx的dispatch
-//     //将事件处理函数reducer和默认值initialValue作为参数传递给useReducer
-//     const [xxx, dispatch] = useReducer(reducer, 0);
-//
-//     // 若想修改xxx的值，通过dispatch来修改
-//     dispatch('xxx');
-// }
+const initialCount = 0;
 
-function reducer(state, action){
+function reducer(state, action) {
     switch (action.type) {
         case 'add':
-            return state + action.param
+            return state + action.param;
         case 'sub':
-            return state - action.param
+            return state - action.param;
         case 'mul':
-            return state * action.param
+            return state * action.param;
+        case 'reset':
+            return initialCount;
         default:
-            console.log('what?')
-            return state
+            console.log('what?');
+            return state;
     }
 }
 
-function getRandom() {
-    return Math.floor(Math.random() * 10)
-}
+function App(){
+    // 定义全局变量count, 以及负责抛出修改事件的dispatch
+    const [count, dispatch] = useReducer(reducer, initialCount);
 
-function App() {
-
-    const [count, dispatch] = useReducer(reducer, 0);
-
-
-    return (
+    // 请注意: value = {{count, dispatch}} 是整个代码的核心，把将count,dispatch暴露给所有子组件
+    return <CountContext.Provider value={{count, dispatch}} >
         <div>
-            {count}
-            <button onClick={() => {dispatch({type: 'add', param: getRandom()})}}>add</button>
-            <button onClick={() => {dispatch({type: 'sub', param: getRandom()})}}>sub</button>
-            <button onClick={() => {dispatch({type: 'mul', param: getRandom()})}}>mul</button>
+            ParentComponent - count = {count}
+            <ComponentA />
+            <ComponentB />
+            <ComponentP />
         </div>
-    );
+    </CountContext.Provider>
 }
 
 export default App;
