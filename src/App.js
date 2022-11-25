@@ -12,7 +12,7 @@ function App(){
         console.log("begin....")
         let total = 0;
 
-        // 计算所有素数之和
+        // 计算所有素o数之和
         for (let i = 1;i <= num; i++) {
             let boo = true;
             for (let j = 2; j < i; j++) {
